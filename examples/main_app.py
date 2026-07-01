@@ -34,6 +34,10 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Synaptipy — Electrophysiology Viewer")
         self.setMinimumSize(1024, 700)
 
+        # Theme manager
+        self.theme = ThemeManager(mode="light")
+        self._dark_mode = False
+
         # Icons
         self.icons = IconProvider()
 
@@ -212,6 +216,11 @@ class MainWindow(QMainWindow):
 
         vbox.addStretch()
 
+        # Dark mode toggle
+        self._theme_toggle = StyledButton("Dark Mode", level="secondary", size="standard")
+        self._theme_toggle.clicked.connect(self._toggle_theme)
+        vbox.addWidget(self._theme_toggle)
+
         # Export button
         export_btn = StyledButton("Export", level="secondary", size="standard")
         export_btn.setIcon(self.icons.get("settings", size="sm"))
@@ -238,6 +247,14 @@ class MainWindow(QMainWindow):
     def _on_export(self):
         """Handle export button click."""
         Toast.show("Export started", parent=self)
+
+    def _toggle_theme(self):
+        """Toggle between light and dark mode."""
+        self._dark_mode = not self._dark_mode
+        mode = "dark" if self._dark_mode else "light"
+        self.theme.set_mode(mode, app=QApplication.instance())
+        self._theme_toggle.setText("Light Mode" if self._dark_mode else "Dark Mode")
+        Toast.show(f"Switched to {mode} mode", parent=self)
 
 
 def main():
