@@ -7,6 +7,7 @@ from .input import (
 )
 from .panels import StyledGroupBox, StyledCard, StyledDivider
 from .extras import StyledProgressBar, StyledSlider, StyledTabWidget
+from .dialogs import StyledMessageBox, StyledInputDialog
 
 __all__ = [
     "StyledButton", "Toast",
@@ -15,4 +16,5 @@ __all__ = [
     "StyledMultiSelectComboBox",
     "StyledGroupBox", "StyledCard", "StyledDivider",
     "StyledProgressBar", "StyledSlider", "StyledTabWidget",
+    "StyledMessageBox", "StyledInputDialog",
 ]

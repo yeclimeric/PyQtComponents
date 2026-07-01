@@ -18,6 +18,7 @@ from pyqtcomponents.widgets import (
     StyledMultiSelectComboBox,
     StyledGroupBox, StyledCard, StyledDivider,
     StyledProgressBar, StyledSlider, StyledTabWidget,
+    StyledMessageBox, StyledInputDialog,
 )
 from pyqtcomponents.icons import IconProvider
 
@@ -199,6 +200,33 @@ class DemoWindow(QMainWindow):
         layout.addWidget(tabs)
 
         layout.addStretch()
+
+        # Dialog triggers
+        section8 = QLabel("Dialogs")
+        section8.setStyleSheet("font-size: 14px; font-weight: bold; margin-top: 8px;")
+        layout.addWidget(section8)
+
+        dialog_row = QHBoxLayout()
+        dialog_row.setSpacing(8)
+
+        info_btn = StyledButton("Info", level="secondary", size="standard")
+        info_btn.clicked.connect(lambda: StyledMessageBox.info("Info", "This is an informational message.", self))
+        dialog_row.addWidget(info_btn)
+
+        warn_btn = StyledButton("Warning", level="secondary", size="standard")
+        warn_btn.clicked.connect(lambda: StyledMessageBox.warning("Warning", "Something needs attention.", self))
+        dialog_row.addWidget(warn_btn)
+
+        error_btn = StyledButton("Error", level="danger", size="standard")
+        error_btn.clicked.connect(lambda: StyledMessageBox.error("Error", "An error occurred.", self))
+        dialog_row.addWidget(error_btn)
+
+        input_btn = StyledButton("Input", level="secondary", size="standard")
+        input_btn.clicked.connect(lambda: StyledInputDialog.text("Input", "Enter your name:", self))
+        dialog_row.addWidget(input_btn)
+
+        dialog_row.addStretch()
+        layout.addLayout(dialog_row)
 
         # Toast trigger
         toast_btn = StyledButton("Show Toast", level="primary", size="loose")
