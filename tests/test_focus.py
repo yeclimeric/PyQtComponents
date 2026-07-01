@@ -42,20 +42,24 @@ def test_focus_tracker_no_duplicate(qtbot):
 
 
 def test_focus_tracker_next(qtbot):
-    from PySide6.QtWidgets import QApplication
+    from PySide6.QtWidgets import QApplication, QMainWindow
+    win = QMainWindow()
+    win.resize(400, 300)
+    qtbot.addWidget(win)
+
     tracker = FocusTracker()
-    btn1 = QPushButton("A")
-    btn2 = QPushButton("B")
-    btn1.show()
-    btn2.show()
-    qtbot.addWidget(btn1)
-    qtbot.addWidget(btn2)
+    btn1 = QPushButton("A", win)
+    btn2 = QPushButton("B", win)
+    win.show()
+    qtbot.wait(100)
+
     tracker.register(btn1)
     tracker.register(btn2)
+
     btn1.setFocus()
-    qtbot.wait(50)
+    qtbot.wait(100)
     tracker.focus_next()
-    qtbot.wait(50)
+    qtbot.wait(100)
     focused = QApplication.instance().focusWidget()
     assert focused is btn2
 

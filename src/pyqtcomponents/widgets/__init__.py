@@ -9,6 +9,10 @@ from .panels import StyledGroupBox, StyledCard, StyledDivider
 from .extras import StyledProgressBar, StyledSlider, StyledTabWidget
 from .dialogs import StyledMessageBox, StyledInputDialog
 from .advanced import StyledTooltip, StyledTable, StyledMenuBar
+from .extra_widgets import (
+    Cascader, StyledSwitch, CollapsiblePanel, Drawer,
+    NavigationBar, TabPagination,
+)
 
 __all__ = [
     "StyledButton", "Toast",
@@ -19,4 +23,6 @@ __all__ = [
     "StyledProgressBar", "StyledSlider", "StyledTabWidget",
     "StyledMessageBox", "StyledInputDialog",
     "StyledTooltip", "StyledTable", "StyledMenuBar",
+    "Cascader", "StyledSwitch", "CollapsiblePanel", "Drawer",
+    "NavigationBar", "TabPagination",
 ]
