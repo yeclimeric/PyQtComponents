@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>Synaptipy GUI 样式设计方案</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "loose" });
+    </script>
+    <style>
+      .token-card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; }
+      .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; }
+      .color-swatch { height: 40px; border-radius: 6px; border: 1px solid #e5e7eb; }
+      .spec-table { width: 100%; border-collapse: collapse; }
+      .spec-table th, .spec-table td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+      .spec-table th { background: #f9fafb; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+    </style>
+  </head>
+  <body class="bg-stone-50 text-slate-900 font-sans">
+    <main class="max-w-6xl mx-auto px-6 py-12 space-y-12">
+      
+      <!-- 文档头 -->
+      <header class="border-b border-slate-200 pb-8">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-4xl font-serif font-bold text-slate-900">Synaptipy GUI 样式设计方案</h1>
+            <p class="mt-2 text-lg text-slate-600">通用设计规范 · v1.0</p>
+          </div>
+          <div class="text-right text-sm text-slate-500">
+            <div>版本: 1.0.0</div>
+            <div>日期: 2026-07-01</div>
+            <div>状态: 已批准</div>
+          </div>
+        </div>
+        <p class="mt-4 text-slate-600">
+          本文档定义了 Synaptipy 电生理数据可视化应用的通用 GUI 样式设计方案。
+          涵盖主题系统、颜色、间距、字体、控件、布局等所有视觉设计规范。
+        </p>
+      </header>
+
+      <!-- 目录 -->
+      <section class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-lg font-semibold text-slate-900 mb-4">目录</h2>
+        <div class="grid grid-cols-2 gap-4 text-sm">
+          <div class="space-y-2">
+            <a href="#d1" class="block text-blue-600 hover:underline">D1: 设计风格定位</a>
+            <a href="#d2" class="block text-blue-600 hover:underline">D2: 调色板策略</a>
+            <a href="#d3" class="block text-blue-600 hover:underline">D3: 间距系统</a>
+            <a href="#d4" class="block text-blue-600 hover:underline">D4: 字体规范</a>
+            <a href="#d5" class="block text-blue-600 hover:underline">D5: 按钮设计</a>
+            <a href="#d6" class="block text-blue-600 hover:underline">D6: 输入控件样式</a>
+          </div>
+          <div class="space-y-2">
+            <a href="#d7" class="block text-blue-600 hover:underline">D7: 面板和分组框</a>
+            <a href="#d8" class="block text-blue-600 hover:underline">D8: 绘图区域主题</a>
+            <a href="#d9" class="block text-blue-600 hover:underline">D9: 图标风格</a>
+            <a href="#d10" class="block text-blue-600 hover:underline">D10: 反馈和状态指示</a>
+            <a href="#d11" class="block text-blue-600 hover:underline">D11: 响应式布局策略</a>
+            <a href="#d12" class="block text-blue-600 hover:underline">D12: 无障碍访问</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- D1: 设计风格定位 -->
+      <section id="d1" class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900 mb-4">D1: 设计风格定位</h2>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+          <p class="text-sm text-blue-800"><strong>决策：</strong>保持系统原生优先，但增强视觉一致性</p>
+        </div>
+        
+        <div class="grid grid-cols-3 gap-6">
+          <div class="token-card bg-slate-50">
+            <h3 class="text-sm font-medium text-slate-700 mb-2">核心原则</h3>
+            <ul class="text-xs text-slate-600 space-y-1">
+              <li>• 系统原生风格优先</li>
+              <li>• 尊重操作系统主题</li>
+              <li>• 功能导向设计</li>
+              <li>• 跨平台一致性</li>
+            </ul>
+          </div>
+          <div class="token-card bg-slate-50">
+            <h3 class="text-sm font-medium text-slate-700 mb-2">目标用户</h3>
+            <ul class="text-xs text-slate-600 space-y-1">
+              <li>• 科研人员</li>
+              <li>• 电生理学家</li>
+              <li>• 数据分析师</li>
+            </ul>
+          </div>
+          <div class="token-card bg-slate-50">
+            <h3 class="text-sm font-medium text-slate-700 mb-2">技术实现</h3>
+            <ul class="text-xs text-slate-600 space-y-1">
+              <li>• Qt QPalette</li>
+              <li>• Fusion 风格</li>
+              <li>• 系统字体栈</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- D2: 调色板策略 -->
+      <section id="d2" class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900 mb-4">D2: 调色板策略</h2>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+          <p class="text-sm text-blue-800"><strong>决策：</strong>采用语义化颜色令牌方案，将颜色分为基础色和派生色</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <!-- 基础色 -->
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">基础色 (Foundation)</h3>
+            
+            <div class="mb-4">
+              <h4 class="text-xs uppercase tracking-wider text-slate-500 mb-2">Primary</h4>
+              <div class="flex gap-1">
+                <div class="flex-1 h-10 rounded" style="background: #eff6ff;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #dbeafe;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #bfdbfe;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #93c5fd;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #60a5fa;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #3b82f6;"></div>
+                <div class="flex-1 h-10 rounded text-white text-xs flex items-center justify-center">600</div>
+                <div class="flex-1 h-10 rounded" style="background: #2563eb;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #1d4ed8;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #1e40af;"></div>
+              </div>
+              <div class="flex justify-between text-xs text-slate-500 mt-1">
+                <span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <h4 class="text-xs uppercase tracking-wider text-slate-500 mb-2">Neutral</h4>
+              <div class="flex gap-1">
+                <div class="flex-1 h-10 rounded" style="background: #f9fafb;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #f3f4f6;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #e5e7eb;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #d1d5db;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #9ca3af;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #6b7280;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #4b5563;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #374151;"></div>
+                <div class="flex-1 h-10 rounded" style="background: #1f2937;"></div>
+                <div class="flex-1 h-10 rounded text-white" style="background: #111827;"></div>
+              </div>
+              <div class="flex justify-between text-xs text-slate-500 mt-1">
+                <span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="text-xs uppercase tracking-wider text-slate-500 mb-2">Semantic</h4>
+              <div class="flex gap-1">
+                <div class="flex-1 h-10 rounded bg-green-500"></div>
+                <div class="flex-1 h-10 rounded bg-amber-500"></div>
+                <div class="flex-1 h-10 rounded bg-red-500"></div>
+              </div>
+              <div class="flex justify-between text-xs text-slate-500 mt-1">
+                <span>Success</span><span>Warning</span><span>Error</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 派生色 -->
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">派生色 (Semantic)</h3>
+            <table class="spec-table text-sm">
+              <thead>
+                <tr>
+                  <th>令牌</th>
+                  <th>浅色值</th>
+                  <th>深色值</th>
+                  <th>用途</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="font-mono text-xs">background-primary</td>
+                  <td><div class="w-6 h-6 rounded border" style="background: #ffffff;"></div></td>
+                  <td><div class="w-6 h-6 rounded border" style="background: #1f2937;"></div></td>
+                  <td>主背景</td>
+                </tr>
+                <tr>
+                  <td class="font-mono text-xs">background-secondary</td>
+                  <td><div class="w-6 h-6 rounded border" style="background: #f9fafb;"></div></td>
+                  <td><div class="w-6 h-6 rounded border" style="background: #111827;"></div></td>
+                  <td>次背景</td>
+                </tr>
+                <tr>
+                  <td class="font-mono text-xs">text-primary</td>
+                  <td><div class="w-6 h-6 rounded border" style="background: #111827;"></div></td>
+                  <td><div class="w-6 h-6 rounded border" style="background: #f9fafb;"></div></td>
+                  <td>主文字</td>
+                </tr>
+                <tr>
+                  <td class="font-mono text-xs">text-secondary</td>
+                  <td><div class="w-6 h-6 rounded border" style="background: #6b7280;"></div></td>
+                  <td><div class="w-6 h-6 rounded border" style="background: #9ca3af;"></div></td>
+                  <td>次文字</td>
+                </tr>
+                <tr>
+                  <td class="font-mono text-xs">border-default</td>
+                  <td><div class="w-6 h-6 rounded border" style="background: #e5e7eb;"></div></td>
+                  <td><div class="w-6 h-6 rounded border" style="background: #374151;"></div></td>
+                  <td>边框</td>
+                </tr>
+                <tr>
+                  <td class="font-mono text-xs">highlight-focus</td>
+                  <td><div class="w-6 h-6 rounded border" style="background: #3b82f6;"></div></td>
+                  <td><div class="w-6 h-6 rounded border" style="background: #60a5fa;"></div></td>
+                  <td>聚焦高亮</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- D3: 间距系统 -->
+      <section id="d3" class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900 mb-4">D3: 间距系统</h2>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+          <p class="text-sm text-blue-800"><strong>决策：</strong>采用 4px 基础网格的间距系统</p>
+        </div>
+
+        <div class="grid grid-cols-7 gap-4">
+          <div class="text-center">
+            <div class="bg-slate-200 mx-auto" style="width: 2px; height: 24px;"></div>
+            <div class="mt-2 text-xs font-mono text-slate-600">xxs</div>
+            <div class="text-xs text-slate-500">2px</div>
+          </div>
+          <div class="text-center">
+            <div class="bg-slate-200 mx-auto" style="width: 4px; height: 24px;"></div>
+            <div class="mt-2 text-xs font-mono text-slate-600">xs</div>
+            <div class="text-xs text-slate-500">4px</div>
+          </div>
+          <div class="text-center">
+            <div class="bg-slate-200 mx-auto" style="width: 8px; height: 24px;"></div>
+            <div class="mt-2 text-xs font-mono text-slate-600">sm</div>
+            <div class="text-xs text-slate-500">8px</div>
+          </div>
+          <div class="text-center">
+            <div class="bg-slate-200 mx-auto" style="width: 12px; height: 24px;"></div>
+            <div class="mt-2 text-xs font-mono text-slate-600">md</div>
+            <div class="text-xs text-slate-500">12px</div>
+          </div>
+          <div class="text-center">
+            <div class="bg-slate-200 mx-auto" style="width: 16px; height: 24px;"></div>
+            <div class="mt-2 text-xs font-mono text-slate-600">lg</div>
+            <div class="text-xs text-slate-500">16px</div>
+          </div>
+          <div class="text-center">
+            <div class="bg-slate-200 mx-auto" style="width: 24px; height: 24px;"></div>
+            <div class="mt-2 text-xs font-mono text-slate-600">xl</div>
+            <div class="text-xs text-slate-500">24px</div>
+          </div>
+          <div class="text-center">
+            <div class="bg-slate-200 mx-auto" style="width: 32px; height: 24px;"></div>
+            <div class="mt-2 text-xs font-mono text-slate-600">xxl</div>
+            <div class="text-xs text-slate-500">32px</div>
+          </div>
+        </div>
+
+        <table class="spec-table mt-6">
+          <thead>
+            <tr>
+              <th>令牌</th>
+              <th>值</th>
+              <th>典型用途</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="font-mono text-xs">spacing-xxs</td><td>2px</td><td>图标与文字间距</td></tr>
+            <tr><td class="font-mono text-xs">spacing-xs</td><td>4px</td><td>紧凑元素内间距</td></tr>
+            <tr><td class="font-mono text-xs">spacing-sm</td><td>8px</td><td>按钮内间距、小组件</td></tr>
+            <tr><td class="font-mono text-xs">spacing-md</td><td>12px</td><td>标准组件内间距</td></tr>
+            <tr><td class="font-mono text-xs">spacing-lg</td><td>16px</td><td>区域内间距</td></tr>
+            <tr><td class="font-mono text-xs">spacing-xl</td><td>24px</td><td>区域间间距</td></tr>
+            <tr><td class="font-mono text-xs">spacing-xxl</td><td>32px</td><td>大区块分隔</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- D4: 字体规范 -->
+      <section id="d4" class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900 mb-4">D4: 字体规范</h2>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+          <p class="text-sm text-blue-800"><strong>决策：</strong>采用系统字体栈策略，指定回退顺序但不强制特定字体</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">字体族</h3>
+            <table class="spec-table text-sm">
+              <thead>
+                <tr><th>平台</th><th>字体栈</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>macOS</td><td class="font-mono text-xs">-apple-system, BlinkMacSystemFont, "SF Pro Text"</td></tr>
+                <tr><td>Windows</td><td class="font-mono text-xs">"Segoe UI", "Microsoft YaHei"</td></tr>
+                <tr><td>Linux</td><td class="font-mono text-xs">"Noto Sans", "Ubuntu", sans-serif</td></tr>
+                <tr><td>等宽</td><td class="font-mono text-xs">"SF Mono", "Cascadia Code", "JetBrains Mono"</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">字体大小</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-2 bg-slate-50 rounded">
+                <span style="font-size: 11px;">xs - 辅助文字</span>
+                <span class="text-xs text-slate-500">11px</span>
+              </div>
+              <div class="flex items-center justify-between p-2 bg-slate-50 rounded">
+                <span style="font-size: 12px;">sm - 次要文字</span>
+                <span class="text-xs text-slate-500">12px</span>
+              </div>
+              <div class="flex items-center justify-between p-2 bg-slate-50 rounded">
+                <span style="font-size: 13px;">base - 正文</span>
+                <span class="text-xs text-slate-500">13px</span>
+              </div>
+              <div class="flex items-center justify-between p-2 bg-slate-50 rounded">
+                <span style="font-size: 14px;">lg - 小标题</span>
+                <span class="text-xs text-slate-500">14px</span>
+              </div>
+              <div class="flex items-center justify-between p-2 bg-slate-50 rounded">
+                <span style="font-size: 16px;">xl - 区域标题</span>
+                <span class="text-xs text-slate-500">16px</span>
+              </div>
+              <div class="flex items-center justify-between p-2 bg-slate-50 rounded">
+                <span style="font-size: 20px;">2xl - 页面标题</span>
+                <span class="text-xs text-slate-500">20px</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- D5: 按钮设计 -->
+      <section id="d5" class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900 mb-4">D5: 按钮设计</h2>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+          <p class="text-sm text-blue-800"><strong>决策：</strong>采用四级按钮层次体系</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">按钮类型</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-4 p-3 bg-slate-50 rounded">
+                <button class="px-4 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700" style="height: 32px;">主要按钮</button>
+                <div>
+                  <div class="text-sm font-medium">Primary</div>
+                  <div class="text-xs text-slate-500">核心操作：打开、保存、执行</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-4 p-3 bg-slate-50 rounded">
+                <button class="px-4 py-2 border border-slate-300 bg-white rounded text-slate-700 hover:bg-slate-50" style="height: 32px;">次要按钮</button>
+                <div>
+                  <div class="text-sm font-medium">Secondary</div>
+                  <div class="text-xs text-slate-500">辅助操作：取消、重置</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-4 p-3 bg-slate-50 rounded">
+                <button class="px-4 py-2 text-blue-600 hover:underline" style="height: 32px;">三级按钮</button>
+                <div>
+                  <div class="text-sm font-medium">Tertiary</div>
+                  <div class="text-xs text-slate-500">链接式操作：了解更多</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-4 p-3 bg-slate-50 rounded">
+                <button class="px-4 py-2 bg-red-600 text-white rounded font-medium hover:bg-red-700" style="height: 32px;">危险按钮</button>
+                <div>
+                  <div class="text-sm font-medium">Danger</div>
+                  <div class="text-xs text-slate-500">破坏性操作：删除、清除</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">尺寸规范</h3>
+            <table class="spec-table text-sm">
+              <thead>
+                <tr><th>属性</th><th>标准</th><th>紧凑</th><th>宽松</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>高度</td><td>32px</td><td>24px</td><td>40px</td></tr>
+                <tr><td>内边距</td><td>8px 16px</td><td>4px 12px</td><td>12px 24px</td></tr>
+                <tr><td>圆角</td><td colspan="3">4px</td></tr>
+                <tr><td>字体</td><td colspan="3">13px (base)</td></tr>
+              </tbody>
+            </table>
+
+            <h3 class="text-sm font-medium text-slate-700 mb-3 mt-6">状态</h3>
+            <div class="flex gap-2">
+              <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm">默认</button>
+              <button class="px-3 py-1 bg-blue-700 text-white rounded text-sm">悬停</button>
+              <button class="px-3 py-1 bg-blue-800 text-white rounded text-sm">按下</button>
+              <button class="px-3 py-1 bg-blue-300 text-white rounded text-sm">禁用</button>
+              <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm ring-2 ring-blue-400 ring-offset-2">聚焦</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- D6: 输入控件样式 -->
+      <section id="d6" class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900 mb-4">D6: 输入控件样式</h2>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+          <p class="text-sm text-blue-800"><strong>决策：</strong>采用统一高度 + 精简边框策略</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">控件样式</h3>
+            <div class="space-y-3">
+              <div class="p-3 bg-slate-50 rounded">
+                <div class="text-xs text-slate-500 mb-1">QLineEdit</div>
+                <input type="text" placeholder="输入文本..." class="w-full px-3 border border-slate-300 rounded focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none" style="height: 32px;" />
+              </div>
+              <div class="p-3 bg-slate-50 rounded">
+                <div class="text-xs text-slate-500 mb-1">QSpinBox</div>
+                <input type="number" value="0" class="w-full px-3 border border-slate-300 rounded focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none" style="height: 32px;" />
+              </div>
+              <div class="p-3 bg-slate-50 rounded">
+                <div class="text-xs text-slate-500 mb-1">QComboBox</div>
+                <select class="w-full px-3 border border-slate-300 rounded focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none" style="height: 32px;">
+                  <option>选择选项...</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">状态颜色</h3>
+            <table class="spec-table text-sm">
+              <thead>
+                <tr><th>状态</th><th>边框</th><th>背景</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>正常</td>
+                  <td>1px neutral-300</td>
+                  <td>白色</td>
+                </tr>
+                <tr>
+                  <td>悬停</td>
+                  <td>1px neutral-400</td>
+                  <td>白色</td>
+                </tr>
+                <tr>
+                  <td>聚焦</td>
+                  <td>1px primary-500 + 2px 蓝色外发光</td>
+                  <td>白色</td>
+                </tr>
+                <tr>
+                  <td>错误</td>
+                  <td>1px error-500</td>
+                  <td>白色</td>
+                </tr>
+                <tr>
+                  <td>禁用</td>
+                  <td>1px neutral-200</td>
+                  <td>neutral-100</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- D7: 面板和分组框 -->
+      <section id="d7" class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900 mb-4">D7: 面板和分组框</h2>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+          <p class="text-sm text-blue-800"><strong>决策：</strong>采用轻量化分组策略</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-6">
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">QGroupBox</h3>
+            <div class="border border-slate-200 rounded-lg p-4">
+              <div class="text-sm font-medium text-slate-600 -mt-6 bg-white px-2 inline-block">分组标题</div>
+              <div class="text-sm text-slate-600 mt-2">分组内容区域</div>
+            </div>
+            <div class="mt-2 text-xs text-slate-500 space-y-1">
+              <div>边框：1px neutral-200</div>
+              <div>圆角：8px</div>
+              <div>内边距：16px</div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">Card</h3>
+            <div class="border border-slate-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+              <div class="text-sm font-medium text-slate-700">卡片标题</div>
+              <div class="text-sm text-slate-600 mt-2">卡片内容</div>
+            </div>
+            <div class="mt-2 text-xs text-slate-500 space-y-1">
+              <div>边框：1px neutral-200</div>
+              <div>圆角：8px</div>
+              <div>阴影：0 1px 3px rgba(0,0,0,0.1)</div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">Divider</h3>
+            <div class="py-4">
+              <div class="text-sm text-slate-600">上方内容</div>
+              <div class="border-t border-slate-200 my-2"></div>
+              <div class="text-sm text-slate-600">下方内容</div>
+            </div>
+            <div class="mt-2 text-xs text-slate-500 space-y-1">
+              <div>颜色：neutral-200</div>
+              <div>高度：1px</div>
+              <div>间距：上下各 8px</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- D8: 绘图区域主题 -->
+      <section id="d8" class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900 mb-4">D8: 绘图区域主题</h2>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+          <p class="text-sm text-blue-800"><strong>决策：</strong>采用高对比度 + 可配置网格策略</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">绘图配置</h3>
+            <table class="spec-table text-sm">
+              <thead>
+                <tr><th>属性</th><th>浅色模式</th><th>深色模式</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>背景</td>
+                  <td><div class="flex items-center gap-2"><div class="w-6 h-6 border rounded bg-white"></div>#FFFFFF</div></td>
+                  <td><div class="flex items-center gap-2"><div class="w-6 h-6 border rounded" style="background: #2d2d2d;"></div>#2D2D2D</div></td>
+                </tr>
+                <tr>
+                  <td>网格颜色</td>
+                  <td>neutral-300</td>
+                  <td>neutral-600</td>
+                </tr>
+                <tr>
+                  <td>网格透明度</td>
+                  <td colspan="2">0.3 (可配置)</td>
+                </tr>
+                <tr>
+                  <td>坐标轴文字</td>
+                  <td>neutral-700</td>
+                  <td>neutral-300</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">数据线条颜色 (色盲友好)</h3>
+            <div class="flex gap-2 flex-wrap">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-1 rounded" style="background: #E69F00;"></div>
+                <span class="text-xs">#E69F00</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-1 rounded" style="background: #56B4E9;"></div>
+                <span class="text-xs">#56B4E9</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-1 rounded" style="background: #009E73;"></div>
+                <span class="text-xs">#009E73</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-1 rounded" style="background: #F0E442;"></div>
+                <span class="text-xs">#F0E442</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-1 rounded" style="background: #0072B2;"></div>
+                <span class="text-xs">#0072B2</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-1 rounded" style="background: #D55E00;"></div>
+                <span class="text-xs">#D55E00</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-1 rounded" style="background: #CC79A7;"></div>
+                <span class="text-xs">#CC79A7</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- D9: 图标风格 -->
+      <section id="d9" class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900 mb-4">D9: 图标风格</h2>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+          <p class="text-sm text-blue-800"><strong>决策：</strong>采用线性图标 + 统一尺寸策略</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">图标尺寸</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-4 p-2 bg-slate-50 rounded">
+                <svg class="text-slate-700" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                </svg>
+                <div>
+                  <div class="text-sm">xs - 12px</div>
+                  <div class="text-xs text-slate-500">内联辅助</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-4 p-2 bg-slate-50 rounded">
+                <svg class="text-slate-700" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                </svg>
+                <div>
+                  <div class="text-sm">sm - 16px</div>
+                  <div class="text-xs text-slate-500">按钮内图标、列表图标</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-4 p-2 bg-slate-50 rounded">
+                <svg class="text-slate-700" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                </svg>
+                <div>
+                  <div class="text-sm">md - 24px</div>
+                  <div class="text-xs text-slate-500">标准工具栏图标</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-4 p-2 bg-slate-50 rounded">
+                <svg class="text-slate-700" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                </svg>
+                <div>
+                  <div class="text-sm">lg - 32px</div>
+                  <div class="text-xs text-slate-500">大按钮图标</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">格式规范</h3>
+            <table class="spec-table text-sm">
+              <thead>
+                <tr><th>属性</th><th>规范</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>主格式</td><td>SVG (可缩放、可着色)</td></tr>
+                <tr><td>备用格式</td><td>PNG (不支持 SVG 的场景)</td></tr>
+                <tr><td>线条粗细</td><td>1.5px (≤24px) / 2px (≥32px)</td></tr>
+                <tr><td>圆角</td><td>2px</td></tr>
+                <tr><td>颜色</td><td>继承文字颜色 (currentColor)</td></tr>
+                <tr><td>命名</td><td class="font-mono text-xs">ic-{名称}-{尺寸}.svg</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- D10: 反馈和状态指示 -->
+      <section id="d10" class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900 mb-4">D10: 反馈和状态指示</h2>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+          <p class="text-sm text-blue-800"><strong>决策：</strong>采用分层反馈策略</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">反馈类型</h3>
+            <div class="space-y-3">
+              <div class="p-3 bg-slate-50 rounded">
+                <div class="text-sm font-medium text-slate-700">Toast (轻提示)</div>
+                <div class="text-xs text-slate-500">操作成功确认，底部浮现，3 秒后消失</div>
+              </div>
+              <div class="p-3 bg-blue-50 border border-blue-200 rounded">
+                <div class="text-sm font-medium text-blue-700">Info (信息)</div>
+                <div class="text-xs text-blue-600">需要关注的信息，顶部横幅</div>
+              </div>
+              <div class="p-3 bg-amber-50 border border-amber-200 rounded">
+                <div class="text-sm font-medium text-amber-700">Warning (警告)</div>
+                <div class="text-xs text-amber-600">非阻断性警告</div>
+              </div>
+              <div class="p-3 bg-red-50 border border-red-200 rounded">
+                <div class="text-sm font-medium text-red-700">Error (错误)</div>
+                <div class="text-xs text-red-600">需要用户操作的错误</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">Toast 规范</h3>
+            <table class="spec-table text-sm">
+              <thead>
+                <tr><th>属性</th><th>值</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>位置</td><td>底部居中，距底部 24px</td></tr>
+                <tr><td>背景</td><td>neutral-800</td></tr>
+                <tr><td>文字</td><td>白色</td></tr>
+                <tr><td>圆角</td><td>8px</td></tr>
+                <tr><td>内边距</td><td>12px 16px</td></tr>
+                <tr><td>阴影</td><td>0 4px 12px rgba(0,0,0,0.15)</td></tr>
+                <tr><td>动画</td><td>淡入/淡出 200ms</td></tr>
+                <tr><td>持续时间</td><td>3000ms</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- D11: 响应式布局策略 -->
+      <section id="d11" class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900 mb-4">D11: 响应式布局策略</h2>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+          <p class="text-sm text-blue-800"><strong>决策：</strong>采用最小宽度约束 + 自适应折叠策略</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">尺寸约束</h3>
+            <table class="spec-table text-sm">
+              <thead>
+                <tr><th>组件</th><th>最小宽度</th><th>默认宽度</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>主窗口</td><td>1024px</td><td>屏幕 70%</td></tr>
+                <tr><td>左侧面板</td><td>200px</td><td>280px</td></tr>
+                <tr><td>中央面板</td><td>500px</td><td>弹性</td></tr>
+                <tr><td>右侧面板</td><td>180px</td><td>240px</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">折叠行为</h3>
+            <div class="space-y-3">
+              <div class="p-3 bg-slate-50 rounded">
+                <div class="text-sm font-medium text-slate-700">宽度 < 900px</div>
+                <div class="text-xs text-slate-500">右侧面板折叠为图标栏</div>
+              </div>
+              <div class="p-3 bg-slate-50 rounded">
+                <div class="text-sm font-medium text-slate-700">宽度 < 700px</div>
+                <div class="text-xs text-slate-500">左侧面板折叠为图标栏</div>
+              </div>
+              <div class="p-3 bg-slate-50 rounded">
+                <div class="text-sm font-medium text-slate-700">状态记忆</div>
+                <div class="text-xs text-slate-500">保存到 QSettings</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- D12: 无障碍访问 -->
+      <section id="d12" class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900 mb-4">D12: 无障碍访问</h2>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+          <p class="text-sm text-blue-800"><strong>决策：</strong>采用 WCAG 2.1 AA 级别标准</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-6">
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">对比度要求</h3>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between p-2 bg-slate-50 rounded">
+                <span>正文文字</span>
+                <span class="font-mono text-xs">≥ 4.5:1</span>
+              </div>
+              <div class="flex justify-between p-2 bg-slate-50 rounded">
+                <span>大号文字 (18px+)</span>
+                <span class="font-mono text-xs">≥ 3:1</span>
+              </div>
+              <div class="flex justify-between p-2 bg-slate-50 rounded">
+                <span>非文字元素</span>
+                <span class="font-mono text-xs">≥ 3:1</span>
+              </div>
+              <div class="flex justify-between p-2 bg-slate-50 rounded">
+                <span>焦点指示器</span>
+                <span class="font-mono text-xs">≥ 3:1</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">键盘导航</h3>
+            <div class="space-y-2 text-sm text-slate-600">
+              <div class="p-2 bg-slate-50 rounded">所有交互元素可 Tab 到达</div>
+              <div class="p-2 bg-slate-50 rounded">可见的焦点指示器 (2px outline)</div>
+              <div class="p-2 bg-slate-50 rounded">逻辑的 Tab 顺序</div>
+              <div class="p-2 bg-slate-50 rounded">快捷键提示</div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">屏幕阅读器</h3>
+            <div class="space-y-2 text-sm text-slate-600">
+              <div class="p-2 bg-slate-50 rounded">图标按钮有 aria-label</div>
+              <div class="p-2 bg-slate-50 rounded">分组框有 label 关联</div>
+              <div class="p-2 bg-slate-50 rounded">动态内容有 live region</div>
+              <div class="p-2 bg-slate-50 rounded">表格有 header 关联</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 附录：实现参考 -->
+      <section class="bg-white rounded-xl border border-slate-200 p-6">
+        <h2 class="text-xl font-semibold text-slate-900 mb-4">附录：实现参考</h2>
+        
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">Qt 实现要点</h3>
+            <div class="bg-slate-900 text-slate-100 p-4 rounded-lg font-mono text-xs space-y-2">
+              <div><span class="text-green-400"># 主题管理</span></div>
+              <div>app.setStyle("Fusion")</div>
+              <div>app.setPalette(palette)</div>
+              <div></div>
+              <div><span class="text-green-400"># 颜色令牌</span></div>
+              <div>class ColorToken:</div>
+              <div class="ml-4">primary_600 = QColor(59, 130, 246)</div>
+              <div class="ml-4">neutral_300 = QColor(209, 213, 219)</div>
+              <div></div>
+              <div><span class="text-green-400"># 间距令牌</span></div>
+              <div>class Spacing:</div>
+              <div class="ml-4">SM = 8</div>
+              <div class="ml-4">MD = 12</div>
+              <div class="ml-4">LG = 16</div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-slate-700 mb-3">文件结构建议</h3>
+            <div class="bg-slate-900 text-slate-100 p-4 rounded-lg font-mono text-xs space-y-1">
+              <div>shared/</div>
+              <div class="ml-4">├── theme/</div>
+              <div class="ml-8">├── colors.py        <span class="text-slate-500"># 颜色令牌</span></div>
+              <div class="ml-8">├── spacing.py       <span class="text-slate-500"># 间距令牌</span></div>
+              <div class="ml-8">├── typography.py    <span class="text-slate-500"># 字体规范</span></div>
+              <div class="ml-8">└── manager.py       <span class="text-slate-500"># 主题管理器</span></div>
+              <div class="ml-4">├── widgets/</div>
+              <div class="ml-8">├── button.py        <span class="text-slate-500"># 按钮组件</span></div>
+              <div class="ml-8">├── input.py         <span class="text-slate-500"># 输入控件</span></div>
+              <div class="ml-8">├── card.py          <span class="text-slate-500"># 卡片组件</span></div>
+              <div class="ml-8">└── toast.py         <span class="text-slate-500"># Toast 提示</span></div>
+              <div class="ml-4">└── icons/</div>
+              <div class="ml-8">└── *.svg            <span class="text-slate-500"># SVG 图标</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 文档尾 -->
+      <footer class="text-center text-sm text-slate-500 py-8 border-t border-slate-200">
+        <p>Synaptipy GUI 样式设计方案 v1.0 · 基于 Grilling 会议生成</p>
+        <p class="mt-1">所有设计决策已记录在 CONTEXT.md</p>
+      </footer>
+
+    </main>
+  </body>
+</html>
