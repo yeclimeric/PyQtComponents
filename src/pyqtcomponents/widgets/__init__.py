@@ -16,6 +16,10 @@ from .extra_widgets import (
 from .ui_components import (
     Breadcrumb, Steps, Badge, Alert, Timeline, TransferList,
 )
+from .widgets_v3 import (
+    Tag, SegmentedControl, StatCard, EmptyState, SkeletonLoader,
+    Rate, TreeView, BackToTop, Watermark,
+)
 
 __all__ = [
     "StyledButton", "Toast",
@@ -29,4 +33,6 @@ __all__ = [
     "Cascader", "StyledSwitch", "CollapsiblePanel", "Drawer",
     "NavigationBar", "TabPagination",
     "Breadcrumb", "Steps", "Badge", "Alert", "Timeline", "TransferList",
+    "Tag", "SegmentedControl", "StatCard", "EmptyState", "SkeletonLoader",
+    "Rate", "TreeView", "BackToTop", "Watermark",
 ]
