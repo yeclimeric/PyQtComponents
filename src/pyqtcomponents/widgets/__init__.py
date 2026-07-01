@@ -13,6 +13,9 @@ from .extra_widgets import (
     Cascader, StyledSwitch, CollapsiblePanel, Drawer,
     NavigationBar, TabPagination,
 )
+from .ui_components import (
+    Breadcrumb, Steps, Badge, Alert, Timeline, TransferList,
+)
 
 __all__ = [
     "StyledButton", "Toast",
@@ -25,4 +28,5 @@ __all__ = [
     "StyledTooltip", "StyledTable", "StyledMenuBar",
     "Cascader", "StyledSwitch", "CollapsiblePanel", "Drawer",
     "NavigationBar", "TabPagination",
+    "Breadcrumb", "Steps", "Badge", "Alert", "Timeline", "TransferList",
 ]
