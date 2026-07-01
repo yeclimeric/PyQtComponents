@@ -17,6 +17,7 @@ from pyqtcomponents.widgets import (
     StyledCheckBox, StyledRadioButton, StyledSearchComboBox,
     StyledMultiSelectComboBox,
     StyledGroupBox, StyledCard, StyledDivider,
+    StyledProgressBar, StyledSlider, StyledTabWidget,
 )
 from pyqtcomponents.icons import IconProvider
 
@@ -175,6 +176,29 @@ class DemoWindow(QMainWindow):
                 icon_row.addWidget(lbl)
         icon_row.addStretch()
         layout.addLayout(icon_row)
+
+        # Extra widgets section
+        section7 = QLabel("Progress, Slider & Tabs")
+        section7.setStyleSheet("font-size: 14px; font-weight: bold; margin-top: 8px;")
+        layout.addWidget(section7)
+
+        progress = StyledProgressBar()
+        progress.setValue(65)
+        layout.addWidget(progress)
+
+        slider = StyledSlider()
+        slider.setRange(0, 100)
+        slider.setValue(42)
+        layout.addWidget(slider)
+
+        tabs = StyledTabWidget()
+        tabs.addTab(QLabel("Content for tab 1"), "Tab 1")
+        tabs.addTab(QLabel("Content for tab 2"), "Tab 2")
+        tabs.addTab(QLabel("Content for tab 3"), "Tab 3")
+        tabs.setFixedHeight(80)
+        layout.addWidget(tabs)
+
+        layout.addStretch()
 
         # Toast trigger
         toast_btn = StyledButton("Show Toast", level="primary", size="loose")
